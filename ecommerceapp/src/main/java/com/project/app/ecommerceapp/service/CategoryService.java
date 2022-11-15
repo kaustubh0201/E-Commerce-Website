@@ -13,6 +13,11 @@ public class CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
     public void addCategory(Category category) {
         categoryRepository.save(category);
     }
