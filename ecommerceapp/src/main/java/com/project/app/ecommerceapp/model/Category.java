@@ -4,12 +4,6 @@ import com.project.app.ecommerceapp.service.CategoryService;
 
 import javax.persistence.*;
 
-//CREATE TABLE `categories` (
-//        `id` int(11) NOT NULL AUTO_INCREMENT,
-//        `category_name` varchar(45) DEFAULT NULL,
-//        PRIMARY KEY (`id`)
-//        ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
 @Entity
 @Table(name = "categories")
 public class Category {

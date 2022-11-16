@@ -1,33 +1,13 @@
-package com.project.app.ecommerceapp.model;
+package com.project.app.ecommerceapp.dto;
 
-import javax.persistence.*;
+public class ProductDTO {
 
-@Entity
-@Table(name = "products")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private long id;
-
-    @Column(name =  "name")
     private String name;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Category category;
-
-    @Column(name = "price")
+    private int categoryId;
     private double price;
-
-    @Column(name = "weight")
     private double weight;
-
-    @Column(name = "description")
     private String description;
-
-    @Column(name = "image_name")
     private String imageName;
 
     public long getId() {
@@ -46,12 +26,12 @@ public class Product {
         this.name = name;
     }
 
-    public Category getCategory() {
-        return category;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public double getPrice() {
@@ -88,10 +68,10 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "ProductDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", category=" + category +
+                ", categoryId=" + categoryId +
                 ", price=" + price +
                 ", weight=" + weight +
                 ", description='" + description + '\'' +

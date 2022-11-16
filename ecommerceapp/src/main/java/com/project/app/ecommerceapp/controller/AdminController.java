@@ -1,7 +1,9 @@
 package com.project.app.ecommerceapp.controller;
 
+import com.project.app.ecommerceapp.dto.ProductDTO;
 import com.project.app.ecommerceapp.model.Category;
 import com.project.app.ecommerceapp.service.CategoryService;
+import com.project.app.ecommerceapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,15 +17,16 @@ public class AdminController {
 
     @Autowired
     CategoryService categoryService;
-    @Autowired
-    public AdminController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 
-    @GetMapping("/")
+    @Autowired
+    ProductService productService;
+
+    @GetMapping("")
     public String adminHomePage() {
         return "adminHome";
     }
+
+    // Category Section
 
     @GetMapping("/categories")
     public String getCategories(Model model) {
@@ -31,13 +34,13 @@ public class AdminController {
         return "categories";
     }
 
-    @GetMapping("categories/add")
+    @GetMapping("/categories/add")
     public String addCategories(Model model) {
         model.addAttribute("category", new Category());
         return "categoriesAdd";
     }
 
-    @PostMapping("categories/add")
+    @PostMapping("/categories/add")
     public String editAddCategories(@ModelAttribute("category") Category category) {
         categoryService.addCategory(category);
         return "redirect:/admin/categories";
@@ -60,6 +63,21 @@ public class AdminController {
         }
 
         return "error";
+    }
+
+    // Product Section
+
+    @GetMapping("/products")
+    public String getProducts(Model model) {
+        model.addAttribute("products", productService.getAllProduct());
+        return "products";
+    }
+
+    @GetMapping("/products/add")
+    public String addProducts(Model model) {
+        model.addAttribute("productDTO", new ProductDTO());
+        model.addAttribute("categories", categoryService.getAllCategory());
+        return "productsAdd";
     }
 
 }
