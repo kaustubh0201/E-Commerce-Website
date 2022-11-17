@@ -30,6 +30,10 @@ public class Product {
     @Column(name = "image_name")
     private String imageName;
 
+    public Product() {
+
+    }
+
     public Product(long id, String name, Category category, double price, double weight, String description, String imageName) {
         this.id = id;
         this.name = name;

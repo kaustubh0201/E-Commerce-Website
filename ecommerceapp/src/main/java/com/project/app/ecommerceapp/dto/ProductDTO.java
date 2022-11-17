@@ -10,6 +10,20 @@ public class ProductDTO {
     private String description;
     private String imageName;
 
+    public ProductDTO() {
+
+    }
+
+    public ProductDTO(long id, String name, int categoryId, double price, double weight, String description, String imageName) {
+        this.id = id;
+        this.name = name;
+        this.categoryId = categoryId;
+        this.price = price;
+        this.weight = weight;
+        this.description = description;
+        this.imageName = imageName;
+    }
+
     public long getId() {
         return id;
     }

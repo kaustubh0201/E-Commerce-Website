@@ -6,6 +6,7 @@ import com.project.app.ecommerceapp.model.Product;
 import com.project.app.ecommerceapp.service.CategoryService;
 import com.project.app.ecommerceapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -116,6 +117,33 @@ public class AdminController {
 
 
         return "redirect:/admin/products";
+    }
+
+    @GetMapping("/product/delete/{id}")
+    public String deleteProduct(@PathVariable long id) {
+        productService.deleteProductById(id);
+
+        return "redirect:/admin/products";
+    }
+
+    @GetMapping("/product/update/{id}")
+    public String updateProduct(@PathVariable long id, Model model) {
+
+        Product product = productService.getProductById(id).get();
+        ProductDTO productDTO = new ProductDTO(
+                product.getId(),
+                product.getName(),
+                product.getCategory().getId(),
+                product.getPrice(),
+                product.getWeight(),
+                product.getDescription(),
+                product.getImageName()
+        );
+
+        model.addAttribute("categories", categoryService.getAllCategory());
+        model.addAttribute("productDTO", productDTO);
+
+        return "productsAdd";
     }
 
 }
