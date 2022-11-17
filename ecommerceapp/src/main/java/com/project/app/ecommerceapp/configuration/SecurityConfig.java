@@ -26,7 +26,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests()
-                .antMatchers("/", "/shop/**", "/register").permitAll()
+                .antMatchers("/", "/shop/**", "/register", "/oauth/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
