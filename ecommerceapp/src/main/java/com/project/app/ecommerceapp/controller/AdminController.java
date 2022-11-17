@@ -2,18 +2,26 @@ package com.project.app.ecommerceapp.controller;
 
 import com.project.app.ecommerceapp.dto.ProductDTO;
 import com.project.app.ecommerceapp.model.Category;
+import com.project.app.ecommerceapp.model.Product;
 import com.project.app.ecommerceapp.service.CategoryService;
 import com.project.app.ecommerceapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
+    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/productImages";
 
     @Autowired
     CategoryService categoryService;
@@ -78,6 +86,36 @@ public class AdminController {
         model.addAttribute("productDTO", new ProductDTO());
         model.addAttribute("categories", categoryService.getAllCategory());
         return "productsAdd";
+    }
+
+    @PostMapping("/products/add")
+    public String editAddProduct(@ModelAttribute("productDTO") ProductDTO productDTO,
+                                 @RequestParam("productImage")MultipartFile file,
+                                 @RequestParam("imgName") String imgName) throws IOException {
+
+        String imageUUID;
+        if(!file.isEmpty()) {
+            imageUUID = file.getOriginalFilename();
+            Path fileNameAndPath = Paths.get(uploadDirectory, imageUUID);
+            Files.write(fileNameAndPath, file.getBytes());
+        } else {
+            imageUUID = imgName;
+        }
+
+        Product product = new Product(
+                productDTO.getId(),
+                productDTO.getName(),
+                categoryService.getCategoryById(productDTO.getCategoryId()).get(),
+                productDTO.getPrice(),
+                productDTO.getWeight(),
+                productDTO.getDescription(),
+                imageUUID
+        );
+
+        productService.addProduct(product);
+
+
+        return "redirect:/admin/products";
     }
 
 }

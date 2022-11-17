@@ -30,6 +30,16 @@ public class Product {
     @Column(name = "image_name")
     private String imageName;
 
+    public Product(long id, String name, Category category, double price, double weight, String description, String imageName) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.weight = weight;
+        this.description = description;
+        this.imageName = imageName;
+    }
+
     public long getId() {
         return id;
     }
