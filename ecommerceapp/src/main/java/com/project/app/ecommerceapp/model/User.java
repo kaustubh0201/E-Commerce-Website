@@ -52,6 +52,15 @@ public class User {
         this.roles = roles;
     }
 
+    public User(User user) {
+        this.setId(user.getId());
+        this.setFirstName(user.getFirstName());
+        this.setLastName(user.getLastName());
+        this.setEmail(user.getEmail());
+        this.setPassword(user.getPassword());
+        this.setRoles(user.getRoles());
+    }
+
     public int getId() {
         return id;
     }
