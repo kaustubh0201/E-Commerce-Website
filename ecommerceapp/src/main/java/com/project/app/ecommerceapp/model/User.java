@@ -26,8 +26,6 @@ public class User {
     @Email(message = "{errors.invalid_email}")
     private String email;
 
-
-    @NotEmpty
     @Column(name = "password")
     private String password;
 
